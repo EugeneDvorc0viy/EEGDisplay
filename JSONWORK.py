@@ -82,6 +82,8 @@ class WorkJSON:
             text = "Такой программы не существует."
         return text
 
+    
+# testing
 
 a = WorkJSON()
 

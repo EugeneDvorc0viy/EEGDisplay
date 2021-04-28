@@ -14,7 +14,7 @@ for elem in JSONFile.openning("json/file.json"):
 
 with open("json/file.json", "r") as filej:
     file = json.load(filej)
-check = "dsfaadf \n sdfdfad \n asfdasf \n asffasf\n"
+
 class WindowOne(QtWidgets.QMainWindow, mainOne.Ui_WindowCreate):
     def __init__(self):
         super().__init__()
@@ -42,20 +42,23 @@ class WindowTwo(QtWidgets.QMainWindow, mainTwo.Ui_MainWindow):
         self.initUi()
 
     def initUi(self):
-        self.comboBox = QtWidgets.QComboBox(self)
-        self.comboBox.move(10, 70)
-        self.comboBox.addItems(menuBox)
-        self.comboBox.activated[str].connect(self.test)
-        self.btnTest = QtWidgets.QPushButton(self)
-        self.btnTest.setText("НАЧАТЬ ТЕСТИРОВАНИЕ")
-        self.btnTest.move(200, 400)
-
-        self.btnTest.clicked.connect(self.checkProg)
+        self.comboBox_2.addItems(menuBox)
+        self.comboBox_2.activated[str].connect(self.test)
 
         self.btnCreate.clicked.connect(self.windowDecoratorTwo)
+        self.btnStart.clicked.connect(self.debutTest)
+
 
     def test(self, text):
         self.label.setText(JSONFile.forDisplay("json/file.json", text))
+        self.btnStart.setText(f'Запустить программу "{text}"')
+
+    def debutTest(self):
+        try:
+            programma = self.label.text().split()[0]
+
+        except Exception:
+            self.label.setText("Сначала выберите программу.")
 
     def checkProg(self):
         self.label.setText(self.comboBox.text())

@@ -19,8 +19,9 @@ class WorkJSON:
             }
             with open(name, "w") as file:
                 json.dump(data, file)
+            return "Название нового файла добавлено"
         else:
-            print("Ce element est deja existe.")
+            return "Такое название уже существует"
 
     def killing(self, name, element):
         with open(name) as file:
@@ -82,17 +83,40 @@ class WorkJSON:
             text = "Такой программы не существует."
         return text
 
-    
+    def showTest(self, name, title):
+        with open(name) as file:
+            data = json.load(file)
+        context = list()
+        if title in data:
+            data = data[title]
+            try:
+                for i in range(data["colvo"]):
+                    text = f"{title}\nЗадание {i + 1} из {data['colvo']}\n{data['task'][i]['nameTask']}\n" \
+                           f"{data['task'][i]['disTask']}/{data['task'][i]['time']}"
+                    context.append(text)
+
+            except Exception:
+                text = "Что-то пошло не так.\nВозможно Вы неправильно заполнили форму"
+                context.append(text)
+        else:
+            text = "Такой программы не существует."
+            context.append(text)
+        return context
 # testing
 
-a = WorkJSON()
 
-print(a.openning("json/file.json"))
+a = WorkJSON()
+#
+# print(a.openning("json/file.json"))
+# for i in a.showTest("json/file.json", "One"):
+#     print(i.split('/')[1])
+# print(len(a.showTest("json/file.json", "One")))
+
 # a.changingTask("json/file.json", "add/One/1", new="PressFeet")
 # a.changingTask("json/file.json", "add/One/4", new="Press")
 # print('\n')
 # print(a.openning("json/file.json"))
-print(a.forDisplay("json/file.json", "One"))
+# print(a.forDisplay("json/file.json", "One"))
 
 # a.adding('json/file.json', "Two")
 # print("\n")
